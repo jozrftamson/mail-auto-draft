@@ -105,6 +105,7 @@ Empfohlene Release-Qualitaetspruefung vor Tag
 - README aktuell
 - SCHNELLSTART_AND_INSTALLATION.md aktuell
 - config.example.yaml aktuell
+- RELEASE_CHECKLIST.md einmal komplett durchgehen
 
 Empfehlung fuer dieses Projekt jetzt
 Sinnvoller erster Tag:

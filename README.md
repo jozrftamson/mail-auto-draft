@@ -307,6 +307,7 @@ Für die Weitergabe auf GitHub gilt:
 ## Weitere Dokumentation
 
 - [Schnellstart und Installation](./SCHNELLSTART_AND_INSTALLATION.md)
+- [Release Checklist](./RELEASE_CHECKLIST.md)
 - [Releases und Tags](./RELEASES_AND_TAGS.md)
 - [Changelog](./CHANGELOG.md)
 - [Contributing / Hermes Skill](./CONTRIBUTING_AND_HERMES_SKILL.md)
