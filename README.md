@@ -133,6 +133,9 @@ Dokumentation
 Ausfuehrliche Installations- und Migrationsanleitung:
 - /home/josef/Projekte/Automation/mail-auto-draft/SCHNELLSTART_AND_INSTALLATION.md
 
+Release- und Tag-Strategie:
+- /home/josef/Projekte/Automation/mail-auto-draft/RELEASES_AND_TAGS.md
+
 Weitergabe / GitHub
 Wenn du das Projekt auf GitHub veroeffentlichst, solltest du vorab:
 - echte Zugangsdaten entfernen
