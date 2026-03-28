@@ -1,5 +1,12 @@
-mode: auto
-account: gmail
+# mail-auto-draft example configuration
+#
+# Safe repository template:
+# - copy this file to config.yaml for local use
+# - do NOT commit your local config.yaml
+# - keep mailbox passwords and secrets in Himalaya/local secret files, not here
+
+mode: draft
+account: your-himalaya-account
 inbox_folder: INBOX
 page_size: 25
 confidence_threshold: 70
@@ -11,20 +18,22 @@ save_raw_message: true
 save_analysis_json: true
 open_draft_instructions: false
 
+# Required to prevent self-reply loops.
 own_addresses:
   - your-address@example.com
 
 paths:
-  processed_ids: /ABSOLUTE/PATH/mail-auto-draft/data/processed_ids.json
-  logs_jsonl: /ABSOLUTE/PATH/mail-auto-draft/logs/mail_actions.jsonl
-  drafts_dir: /ABSOLUTE/PATH/mail-auto-draft/drafts
-  prompts_dir: /ABSOLUTE/PATH/mail-auto-draft/prompts
-  runtime_dir: /ABSOLUTE/PATH/mail-auto-draft/runtime
+  processed_ids: __PROJECT_DIR__/data/processed_ids.json
+  logs_jsonl: __PROJECT_DIR__/logs/mail_actions.jsonl
+  drafts_dir: __PROJECT_DIR__/drafts
+  prompts_dir: __PROJECT_DIR__/prompts
+  runtime_dir: __PROJECT_DIR__/runtime
 
 himalaya:
   binary: himalaya
   config_path: ""
 
+# Optional LLM support. Keep disabled until the rule-based workflow is stable.
 llm:
   enabled: false
   provider: openai_compatible
@@ -34,9 +43,10 @@ llm:
   timeout_seconds: 60
   temperature: 0.1
   max_tokens: 1200
-  system_prompt_file: /ABSOLUTE/PATH/mail-auto-draft/prompts/system_prompt.txt
-  user_prompt_file: /ABSOLUTE/PATH/mail-auto-draft/prompts/user_prompt.txt
+  system_prompt_file: __PROJECT_DIR__/prompts/system_prompt.txt
+  user_prompt_file: __PROJECT_DIR__/prompts/user_prompt.txt
 
+# Only these categories may auto-send when mode=auto and safety checks pass.
 whitelist_categories:
   - info_standard
   - termin_standard
@@ -65,46 +75,46 @@ reply_templates:
   info_standard:
     subject_prefix: "Re: "
     body: |
-      vielen Dank fuer Ihre Nachricht und Ihr Interesse.
+      vielen Dank für Ihre Nachricht und Ihr Interesse.
 
       Gerne senden wir Ihnen weitere Informationen bzw. beantworten Ihre Fragen.
-      Koennten Sie uns kurz mitteilen, welcher Aspekt fuer Sie besonders relevant ist?
+      Könnten Sie uns kurz mitteilen, welcher Aspekt für Sie besonders relevant ist?
 
-      Mit freundlichen Gruessen
+      Mit freundlichen Grüßen
   termin_standard:
     subject_prefix: "Re: "
     body: |
-      vielen Dank fuer Ihre Nachricht.
+      vielen Dank für Ihre Nachricht.
 
       Gerne stimmen wir einen Termin mit Ihnen ab.
-      Bitte nennen Sie uns gerne ein bis zwei passende Zeitfenster, dann melden wir uns mit einem Vorschlag zurueck.
+      Bitte nennen Sie uns gerne ein bis zwei passende Zeitfenster, dann melden wir uns mit einem Vorschlag zurück.
 
-      Mit freundlichen Gruessen
+      Mit freundlichen Grüßen
   unterlagen_standard:
     subject_prefix: "Re: "
     body: |
-      vielen Dank fuer Ihre Nachricht.
+      vielen Dank für Ihre Nachricht.
 
-      Gerne lassen wir Ihnen die gewuenschten Informationen bzw. Unterlagen zukommen.
+      Gerne lassen wir Ihnen die gewünschten Informationen bzw. Unterlagen zukommen.
       Falls Sie einen bestimmten Fokus haben, teilen Sie uns diesen gerne kurz mit.
 
-      Mit freundlichen Gruessen
+      Mit freundlichen Grüßen
   eingangsbestaetigung:
     subject_prefix: "Re: "
     body: |
-      vielen Dank fuer Ihre Nachricht.
+      vielen Dank für Ihre Nachricht.
 
-      Wir haben Ihre Anfrage erhalten und melden uns schnellstmoeglich mit einer Rueckmeldung.
+      Wir haben Ihre Anfrage erhalten und melden uns schnellstmöglich mit einer Rückmeldung.
 
-      Mit freundlichen Gruessen
+      Mit freundlichen Grüßen
   fallback_draft:
     subject_prefix: "Re: "
     body: |
-      vielen Dank fuer Ihre Nachricht.
+      vielen Dank für Ihre Nachricht.
 
-      Wir haben Ihre E-Mail erhalten und melden uns schnellstmoeglich mit einer Rueckmeldung.
+      Wir haben Ihre E-Mail erhalten und melden uns schnellstmöglich mit einer Rückmeldung.
 
-      Mit freundlichen Gruessen
+      Mit freundlichen Grüßen
 
 filters:
   require_unseen: true
@@ -127,6 +137,12 @@ filters:
     - daemon
     - automated
     - system
+    - newsletter
+    - marketing
+    - campaign
+    - announcements
+    - updates
+    - digest
 
   sender_substrings_soft:
     - support@
@@ -137,6 +153,9 @@ filters:
     - newsletter@
     - news@
     - updates@
+    - hello@
+    - team@
+    - contact@
 
   header_ignore_keys:
     - list-unsubscribe
@@ -159,21 +178,25 @@ filters:
     - update
     - neuigkeiten
     - angebote
+    - angebot der woche
     - rabatt
     - aktion
     - sale
+    - sonderaktion
     - promo
     - webinar
     - event
+    - jetzt anmelden
     - nur heute
     - exklusiv
     - inspiration
     - trends
+    - unsere neuesten produkte
 
   subject_keywords_system:
-    - passwort zuruecksetzen
+    - passwort zurücksetzen
     - login-code
-    - bestaetige deine email
+    - bestätige deine email
     - verifizierungscode
     - sicherheitswarnung
     - rechnung
@@ -181,13 +204,13 @@ filters:
     - zahlung
     - payment received
     - bestellung
-    - versandbestaetigung
+    - versandbestätigung
     - lieferstatus
     - ticket erstellt
     - status update
     - kontoauszug
     - mahnung
-    - bestaetigung
+    - bestätigung
     - ihr konto
     - systembenachrichtigung
 
@@ -196,7 +219,7 @@ filters:
     - sponsored
     - werbung
     - pressemitteilung
-    - fuer alle kunden
+    - für alle kunden
     - rundmail
     - campaign
 
@@ -204,13 +227,18 @@ filters:
     - unsubscribe
     - austragen
     - abmelden
+    - manage preferences
+    - email preferences
+    - mailing list
+    - you are receiving this email
+    - receiving this email because
     - rabattcode
     - gutscheincode
     - tracking
     - click here
     - view in browser
     - ticketnummer
-    - automatisierte eingangsbestaetigung
+    - automatisierte eingangsbestätigung
     - dies ist eine automatisch generierte nachricht
 
   german_positive_signals:
@@ -218,10 +246,10 @@ filters:
     - guten tag
     - hallo herr
     - hallo frau
-    - wir moechten
-    - koennen sie
+    - wir möchten
+    - können sie
     - anbei
-    - rueckmeldung
+    - rückmeldung
     - angebot
     - anfrage
     - termin
@@ -239,13 +267,13 @@ filters:
   business_positive_signals:
     - anfrage
     - termin
-    - rueckruf
+    - rückruf
     - angebot
     - kooperation
     - zusammenarbeit
     - informationen
     - unterlagen
-    - praesentation
+    - präsentation
     - vortrag
     - beratung
     - projekt
@@ -262,7 +290,7 @@ filters:
     - mahnung
     - zahlungsfrist
     - anwalt
-    - kuendigung
+    - kündigung
     - rechts
     - rechnung
     - preis
@@ -272,7 +300,7 @@ filters:
     - kooperationsanfrage
     - partnerschaft
     - individuell
-    - massgeschneidert
+    - maßgeschneidert
     - keynote
     - workshop
     - strategie
@@ -291,8 +319,8 @@ filters:
     termin_standard:
       any:
         - termin
-        - verfuegbarkeit
-        - gespraech
+        - verfügbarkeit
+        - gespräch
         - austauschen
         - telefonat
         - call
@@ -301,14 +329,14 @@ filters:
       any:
         - unterlagen
         - pdf
-        - praesentation
+        - präsentation
         - profil
         - zusenden
-        - broschuere
+        - broschüre
     eingangsbestaetigung:
       any:
         - wir melden uns
-        - rueckmeldung
+        - rückmeldung
         - erhalten
         - eingang
 
@@ -329,7 +357,7 @@ safety:
     - reklamation
     - mahnung
     - datenschutz
-    - kuendigung
+    - kündigung
     - preis
     - angebotssumme
     - anwalt

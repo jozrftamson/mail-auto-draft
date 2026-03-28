@@ -1,21 +1,43 @@
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
 
 # Local runtime data
 logs/
 drafts/
 data/
 runtime/
+*.log
 
 # Local secrets / machine-specific overrides
 .env
 .env.*
+*.secrets
+*.secret
+config.yaml
 config.local.yaml
+config.*.local.yaml
 
-# Editor / OS
+# OS / editors
 .vscode/
 .idea/
 .DS_Store
+Thumbs.db
