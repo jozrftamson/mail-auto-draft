@@ -1,0 +1,9 @@
+[Unit]
+Description=Process inbox and auto-reply via Himalaya
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=__PROJECT_DIR__
+ExecStart=/usr/bin/flock -n __PROJECT_DIR__/runtime/process_inbox.lock /usr/bin/python3 __PROJECT_DIR__/process_inbox.py --limit 5

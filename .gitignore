@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local runtime data
+logs/
+drafts/
+data/
+runtime/
+
+# Local secrets / machine-specific overrides
+.env
+.env.*
+config.local.yaml
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store

@@ -1,0 +1,341 @@
+mode: auto
+account: gmail
+inbox_folder: INBOX
+page_size: 25
+confidence_threshold: 70
+mark_processed_on_ignore: true
+mark_processed_on_draft: true
+mark_processed_on_send: true
+allow_reply_all: false
+save_raw_message: true
+save_analysis_json: true
+open_draft_instructions: false
+
+own_addresses:
+  - your-address@example.com
+
+paths:
+  processed_ids: /ABSOLUTE/PATH/mail-auto-draft/data/processed_ids.json
+  logs_jsonl: /ABSOLUTE/PATH/mail-auto-draft/logs/mail_actions.jsonl
+  drafts_dir: /ABSOLUTE/PATH/mail-auto-draft/drafts
+  prompts_dir: /ABSOLUTE/PATH/mail-auto-draft/prompts
+  runtime_dir: /ABSOLUTE/PATH/mail-auto-draft/runtime
+
+himalaya:
+  binary: himalaya
+  config_path: ""
+
+llm:
+  enabled: false
+  provider: openai_compatible
+  base_url: https://api.openai.com/v1
+  api_key_env: OPENAI_API_KEY
+  model: gpt-4o-mini
+  timeout_seconds: 60
+  temperature: 0.1
+  max_tokens: 1200
+  system_prompt_file: /ABSOLUTE/PATH/mail-auto-draft/prompts/system_prompt.txt
+  user_prompt_file: /ABSOLUTE/PATH/mail-auto-draft/prompts/user_prompt.txt
+
+whitelist_categories:
+  - info_standard
+  - termin_standard
+  - unterlagen_standard
+  - eingangsbestaetigung
+
+categories:
+  info_standard:
+    auto_send_allowed: true
+  termin_standard:
+    auto_send_allowed: true
+  unterlagen_standard:
+    auto_send_allowed: true
+  eingangsbestaetigung:
+    auto_send_allowed: true
+  individuell:
+    auto_send_allowed: false
+  sensibel:
+    auto_send_allowed: false
+  unklar:
+    auto_send_allowed: false
+  ignorieren:
+    auto_send_allowed: false
+
+reply_templates:
+  info_standard:
+    subject_prefix: "Re: "
+    body: |
+      vielen Dank fuer Ihre Nachricht und Ihr Interesse.
+
+      Gerne senden wir Ihnen weitere Informationen bzw. beantworten Ihre Fragen.
+      Koennten Sie uns kurz mitteilen, welcher Aspekt fuer Sie besonders relevant ist?
+
+      Mit freundlichen Gruessen
+  termin_standard:
+    subject_prefix: "Re: "
+    body: |
+      vielen Dank fuer Ihre Nachricht.
+
+      Gerne stimmen wir einen Termin mit Ihnen ab.
+      Bitte nennen Sie uns gerne ein bis zwei passende Zeitfenster, dann melden wir uns mit einem Vorschlag zurueck.
+
+      Mit freundlichen Gruessen
+  unterlagen_standard:
+    subject_prefix: "Re: "
+    body: |
+      vielen Dank fuer Ihre Nachricht.
+
+      Gerne lassen wir Ihnen die gewuenschten Informationen bzw. Unterlagen zukommen.
+      Falls Sie einen bestimmten Fokus haben, teilen Sie uns diesen gerne kurz mit.
+
+      Mit freundlichen Gruessen
+  eingangsbestaetigung:
+    subject_prefix: "Re: "
+    body: |
+      vielen Dank fuer Ihre Nachricht.
+
+      Wir haben Ihre Anfrage erhalten und melden uns schnellstmoeglich mit einer Rueckmeldung.
+
+      Mit freundlichen Gruessen
+  fallback_draft:
+    subject_prefix: "Re: "
+    body: |
+      vielen Dank fuer Ihre Nachricht.
+
+      Wir haben Ihre E-Mail erhalten und melden uns schnellstmoeglich mit einer Rueckmeldung.
+
+      Mit freundlichen Gruessen
+
+filters:
+  require_unseen: true
+  require_new_in_inbox: true
+  require_german: false
+  require_business_context: false
+  max_visible_recipients: 12
+  ignore_if_has_attachments: false
+
+  sender_substrings_strict:
+    - no-reply
+    - noreply
+    - do-not-reply
+    - donotreply
+    - notification
+    - notifications
+    - mailer
+    - bounce
+    - postmaster
+    - daemon
+    - automated
+    - system
+
+  sender_substrings_soft:
+    - support@
+    - info@
+    - billing@
+    - invoices@
+    - receipts@
+    - newsletter@
+    - news@
+    - updates@
+
+  header_ignore_keys:
+    - list-unsubscribe
+    - list-id
+    - mailing-list
+    - x-auto-response-suppress
+
+  header_ignore_values:
+    precedence:
+      - bulk
+      - list
+      - junk
+    auto-submitted:
+      - auto-generated
+      - auto-replied
+
+  subject_keywords_newsletter:
+    - newsletter
+    - news
+    - update
+    - neuigkeiten
+    - angebote
+    - rabatt
+    - aktion
+    - sale
+    - promo
+    - webinar
+    - event
+    - nur heute
+    - exklusiv
+    - inspiration
+    - trends
+
+  subject_keywords_system:
+    - passwort zuruecksetzen
+    - login-code
+    - bestaetige deine email
+    - verifizierungscode
+    - sicherheitswarnung
+    - rechnung
+    - invoice
+    - zahlung
+    - payment received
+    - bestellung
+    - versandbestaetigung
+    - lieferstatus
+    - ticket erstellt
+    - status update
+    - kontoauszug
+    - mahnung
+    - bestaetigung
+    - ihr konto
+    - systembenachrichtigung
+
+  subject_keywords_bulk:
+    - "[anzeige]"
+    - sponsored
+    - werbung
+    - pressemitteilung
+    - fuer alle kunden
+    - rundmail
+    - campaign
+
+  body_ignore_patterns:
+    - unsubscribe
+    - austragen
+    - abmelden
+    - rabattcode
+    - gutscheincode
+    - tracking
+    - click here
+    - view in browser
+    - ticketnummer
+    - automatisierte eingangsbestaetigung
+    - dies ist eine automatisch generierte nachricht
+
+  german_positive_signals:
+    - sehr geehrte
+    - guten tag
+    - hallo herr
+    - hallo frau
+    - wir moechten
+    - koennen sie
+    - anbei
+    - rueckmeldung
+    - angebot
+    - anfrage
+    - termin
+    - zusammenarbeit
+
+  german_negative_signals:
+    - kind regards
+    - best regards
+    - dear sir
+    - dear team
+    - password reset
+    - unsubscribe
+    - click here
+
+  business_positive_signals:
+    - anfrage
+    - termin
+    - rueckruf
+    - angebot
+    - kooperation
+    - zusammenarbeit
+    - informationen
+    - unterlagen
+    - praesentation
+    - vortrag
+    - beratung
+    - projekt
+    - unternehmen
+    - firma
+    - workshop
+
+  sensitive_signals:
+    - vertrag
+    - agb
+    - datenschutz
+    - beschwerde
+    - reklamation
+    - mahnung
+    - zahlungsfrist
+    - anwalt
+    - kuendigung
+    - rechts
+    - rechnung
+    - preis
+    - angebotssumme
+
+  individual_signals:
+    - kooperationsanfrage
+    - partnerschaft
+    - individuell
+    - massgeschneidert
+    - keynote
+    - workshop
+    - strategie
+    - pitch
+    - sponsoring
+
+  category_rules:
+    info_standard:
+      any:
+        - information
+        - informationen
+        - ai-kompetenzen
+        - ki-kompetenzen
+        - leistungen
+        - fragen
+    termin_standard:
+      any:
+        - termin
+        - verfuegbarkeit
+        - gespraech
+        - austauschen
+        - telefonat
+        - call
+        - besprechung
+    unterlagen_standard:
+      any:
+        - unterlagen
+        - pdf
+        - praesentation
+        - profil
+        - zusenden
+        - broschuere
+    eingangsbestaetigung:
+      any:
+        - wir melden uns
+        - rueckmeldung
+        - erhalten
+        - eingang
+
+safety:
+  require_whitelist: true
+  require_high_confidence: true
+  require_complete_thread_context: false
+  fallback_to_draft_on_uncertainty: true
+  fallback_to_draft_on_send_error: true
+  forbid_sensitive_categories:
+    - sensibel
+    - individuell
+    - unklar
+    - ignorieren
+  forbid_if_subject_or_body_contains:
+    - vertrag
+    - beschwerde
+    - reklamation
+    - mahnung
+    - datenschutz
+    - kuendigung
+    - preis
+    - angebotssumme
+    - anwalt
+    - frist
+    - dringend
+
+logging:
+  include_analysis_excerpt: true
+  max_body_chars_in_log: 400

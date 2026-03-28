@@ -1,0 +1,21 @@
+Prüfe die folgende E-Mail nach den festgelegten Regeln.
+
+Metadaten:
+- Absender: {from}
+- Betreff: {subject}
+- An: {to}
+- Cc: {cc}
+- Datum: {date}
+- Message-ID: {message_id}
+
+E-Mail-Text:
+{body}
+
+Wichtig:
+- Nur deutsche Geschäftsmails berücksichtigen
+- Newsletter, Systemmails, Marketing, Bulk und Transaktionsmails ignorieren
+- no-reply / do-not-reply besonders beachten
+- Nur für einfache Standardanfragen später Auto-Senden erlauben
+- Bei Unsicherheit needs_human_review=true und draft_only=true setzen
+- Keine Fakten erfinden
+- Antwort maximal kurz und professionell formulieren
