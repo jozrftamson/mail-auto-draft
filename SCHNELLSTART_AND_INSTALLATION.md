@@ -131,8 +131,18 @@ trash = "[Gmail]/Trash"
 
 Wichtig:
 - Bei Gmail App-Passwort verwenden, nicht das normale Passwort.
-- Niemals echte Zugangsdaten in Doku, Git oder öffentliche Dateien committen.
-- Besser später auth.cmd durch sicherere Secret-Verwaltung ersetzen.
+- Niemals echte Zugangsdaten in Doku, Git oder oeffentliche Dateien committen.
+- Secret besser in lokale Datei auslagern, z. B.:
+  ~/.config/mail-auto-draft/secrets.env
+
+Beispiel fuer lokale Secret-Datei:
+GMAIL_APP_PASSWORD='DEIN_APP_PASSWORT'
+
+Beispiel fuer auth.cmd in Himalaya:
+backend.auth.cmd = "sh -lc '. /home/DEINUSER/.config/mail-auto-draft/secrets.env && printf %s \"$GMAIL_APP_PASSWORD\"'"
+
+Und analog fuer SMTP:
+message.send.backend.auth.cmd = "sh -lc '. /home/DEINUSER/.config/mail-auto-draft/secrets.env && printf %s \"$GMAIL_APP_PASSWORD\"'"
 
 ============================================================
 5. CONFIG.YAML ANPASSEN
