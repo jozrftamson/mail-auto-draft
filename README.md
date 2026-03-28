@@ -1,5 +1,7 @@
 mail-auto-draft
 
+[![Release](https://img.shields.io/github/v/release/jozrftamson/mail-auto-draft?sort=semver)](https://github.com/jozrftamson/mail-auto-draft/releases)
+
 Automatische E-Mail-Triage und Auto-Reply mit Himalaya, Python und systemd.
 
 Ueberblick
@@ -135,6 +137,9 @@ Ausfuehrliche Installations- und Migrationsanleitung:
 
 Release- und Tag-Strategie:
 - /home/josef/Projekte/Automation/mail-auto-draft/RELEASES_AND_TAGS.md
+
+Changelog:
+- /home/josef/Projekte/Automation/mail-auto-draft/CHANGELOG.md
 
 Weitergabe / GitHub
 Wenn du das Projekt auf GitHub veroeffentlichst, solltest du vorab:
